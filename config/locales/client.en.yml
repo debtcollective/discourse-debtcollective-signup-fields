@@ -1,3 +1,7 @@
 en:
   js:
     discourse_us_extras:
+      field_types:
+        phone_number: "US - Phone Number"
+        zip_code: "US - Zip Code"
+        state: "US - State"
