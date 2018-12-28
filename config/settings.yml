@@ -1,0 +1,4 @@
+plugins:
+  discourse_us_extras_enabled:
+    default: true
+    client: true
