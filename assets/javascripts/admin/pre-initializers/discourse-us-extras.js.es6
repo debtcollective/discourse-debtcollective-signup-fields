@@ -3,7 +3,7 @@ import { on, observes } from "ember-addons/ember-computed-decorators";
 
 import {
   fieldTypesValidations,
-  BuiltInFieldTypes,
+  getBuiltInFieldTypes,
   PhoneFieldType,
   StateFieldType,
   ZipCodeFieldType
@@ -12,7 +12,7 @@ import {
 const initializeDiscourseUsExtra = api => {
   api.modifyClassStatic("model:user-field", {
     fieldTypes() {
-      return BuiltInFieldTypes.concat(
+      return getBuiltInFieldTypes().concat(
         PhoneFieldType,
         StateFieldType,
         ZipCodeFieldType
