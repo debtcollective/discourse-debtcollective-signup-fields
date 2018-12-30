@@ -1,7 +1,9 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { on, observes } from "ember-addons/ember-computed-decorators";
 
+import { states as usaStates } from "../lib/data/usa";
 import {
+  types,
   fieldTypesValidations,
   getBuiltInFieldTypes,
   PhoneFieldType,
@@ -27,6 +29,21 @@ const initializeDiscourseUsExtra = api => {
     @on("init")
     enhanceFieldComponentValidation() {
       this._enhancedValidationFn = fieldTypesValidations[this.field.field_type];
+    },
+
+    @on("init")
+    bindFixedOptions() {
+      let options;
+
+      switch (this.field.field_type) {
+        case types.state:
+          options = usaStates;
+          break;
+        default:
+          break;
+      }
+
+      this.field.options = options;
     },
 
     @observes("value")
