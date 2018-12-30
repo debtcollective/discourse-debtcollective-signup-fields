@@ -1,7 +1,8 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { on } from "ember-addons/ember-computed-decorators";
+import { on, observes } from "ember-addons/ember-computed-decorators";
 
 import {
+  fieldTypesValidations,
   BuiltInFieldTypes,
   PhoneFieldType,
   StateFieldType,
@@ -21,9 +22,14 @@ const initializeDiscourseUsExtra = api => {
 
   api.modifyClass("component:user-field", {
     @on("init")
-    speak() {
-      /* eslint no-console: 0 */
-      console.log(`Hi! I'm a ${this.field.field_type}`, this.field);
+    enhanceFieldComponentValidation() {
+      this._enhancedValidationFn = fieldTypesValidations[this.field.field_type];
+    },
+
+    @observes("value")
+    validateValue() {
+      this._enhancedValidationFn &&
+        this._enhancedValidationFn(this.get("value"));
     }
   });
 };

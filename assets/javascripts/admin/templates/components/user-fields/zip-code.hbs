@@ -1,1 +1,6 @@
-<h1>This will be a ZIP CODE</h1>
+<label class="control-label" for="{{concat 'user-' elementId}}">{{{field.name}}} {{#if field.required}}<span class='required'>*</span>{{/if}}
+</label>
+<div class='controls'>
+  {{input id=(concat 'user-' elementId) value=value maxlength=site.user_field_max_length}}
+  <div class="instructions">{{{field.description}}}</div>
+</div>
