@@ -5,7 +5,8 @@ export const stateValidation = value => {
 };
 
 export const zipCodeValidation = value => {
-  console.log("zipCodeValidation", value);
+  const usValidZipCodeRegExp = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+  return usValidZipCodeRegExp.test(value);
 };
 
 export const phoneValidation = value => {

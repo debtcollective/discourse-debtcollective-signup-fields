@@ -21,6 +21,9 @@ const initializeDiscourseUsExtra = api => {
   });
 
   api.modifyClass("component:user-field", {
+    classNameBindings: ["isValidFormat:sucess:error"],
+    isValidFormat: false,
+
     @on("init")
     enhanceFieldComponentValidation() {
       this._enhancedValidationFn = fieldTypesValidations[this.field.field_type];
@@ -29,7 +32,14 @@ const initializeDiscourseUsExtra = api => {
     @observes("value")
     validateValue() {
       this._enhancedValidationFn &&
-        this._enhancedValidationFn(this.get("value"));
+        Ember.run.debounce(
+          this,
+          value => {
+            this.set("isValidFormat", this._enhancedValidationFn(value));
+          },
+          this.get("value"),
+          250
+        );
     }
   });
 };
