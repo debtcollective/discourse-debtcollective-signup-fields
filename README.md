@@ -1,6 +1,6 @@
-# DiscourseUsExtras
+# discourse-us-extras
 
-DiscourseUsExtras is a plugin for creating new user field type under Customize > Users > Field Types that allows to enhance the user data with Phone Number, Zip Code and/or State those inputs has custom validations which are the main goal of this plugin. 
+Plugin for creating new user field type under Customize > Users > Field Types that allows to enhance the user data with Phone Number, Zip Code and/or State those inputs has custom validations which are the main goal of this plugin. 
 
 ## Installation
 
@@ -10,10 +10,10 @@ as the plugin command.
 
 ## Usage
 
-In order to use one of the custom inputs go to Customize > Users > Field as admin user within your discourse platform select the DiscourseUsExtras input type and add one of the following supported options:
+In order to use one of the custom inputs go to Customize > Users > Field as admin user within your discourse platform select one of the new input types: Phone number, Zip Code or States:
 
-- zip_code: Renders an input with custom validation for valid zip codes for US
-- phone_number: Renders an input with custom validation for valid US phone numbers
+- zip code: Renders an input with custom validation for valid zip codes for US
+- phone number: Renders an input with custom validation for valid US phone numbers
 - state: Renders a dropdown with the list of states on US so the user can select one of them
 
 ## Feedback
