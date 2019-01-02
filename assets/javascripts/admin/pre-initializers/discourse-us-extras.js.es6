@@ -2,9 +2,9 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 import { on, observes } from "ember-addons/ember-computed-decorators";
 
 import { states as usaStates } from "../lib/data/usa";
+import { fieldTypesValidations } from "../lib/validations";
 import {
   types,
-  fieldTypesValidations,
   getBuiltInFieldTypes,
   PhoneFieldType,
   StateFieldType,

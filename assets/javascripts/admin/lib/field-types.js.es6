@@ -1,11 +1,5 @@
 import { i18n } from "discourse/lib/computed";
 
-import {
-  stateValidation,
-  zipCodeValidation,
-  phoneValidation
-} from "./validations";
-
 // Get the displayable name of each field from locales
 const UserFieldType = Ember.Object.extend({
   name: i18n("id", "admin.user_fields.field_types.%@")
@@ -16,13 +10,6 @@ export const types = {
   state: "state",
   zip_code: "zip-code",
   phone_number: "phone-number"
-};
-
-// Define a map of custom validations
-export const fieldTypesValidations = {
-  [types.state]: value => stateValidation(value),
-  [types.phone_number]: value => phoneValidation(value),
-  [types.zip_code]: value => zipCodeValidation(value)
 };
 
 // Get the already built in types from Discourse

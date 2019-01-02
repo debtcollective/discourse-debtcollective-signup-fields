@@ -1,25 +1,24 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-import { fieldTypesValidations } from "../lib/field-types";
+import { validateUserFieldsFormat } from "../lib/validations";
 
 const initializeValidationEvent = api => {
   api.modifyClass("controller:preferences/profile", {
     actions: {
       save() {
-        const userFields = this.get("userFields");
-        let isValidData = true;
+        const isValidData = validateUserFieldsFormat(this.get("userFields"));
 
-        if (!Ember.isEmpty(userFields)) {
-          /*
-            TODO: It will be great to extend the actual UserField model to include isValid property
-            that can be set onChange and which we can be checked here, instead running all validations again.
-          */
-          isValidData = userFields.every(userField => {
-            const { field, value } = userField;
-            const validationFn = fieldTypesValidations[field.field_type];
-            return validationFn && validationFn(value);
-          });
+        if (isValidData) {
+          this._super();
         }
+      }
+    }
+  });
+
+  api.modifyClass("controller:create-account", {
+    actions: {
+      createAccount() {
+        const isValidData = validateUserFieldsFormat(this.get("userFields"));
 
         if (isValidData) {
           this._super();
