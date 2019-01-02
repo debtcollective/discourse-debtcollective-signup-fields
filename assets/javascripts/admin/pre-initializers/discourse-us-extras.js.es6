@@ -23,12 +23,14 @@ const initializeDiscourseUsExtra = api => {
   });
 
   api.modifyClass("component:user-field", {
-    classNameBindings: ["isValidFormat:sucess:error"],
+    classNameBindings: ["isValidFormat::error", "hasFormat:has-format"],
     isValidFormat: false,
+    hasFormat: false,
 
     @on("init")
     enhanceFieldComponentValidation() {
       this._enhancedValidationFn = fieldTypesValidations[this.field.field_type];
+      this.set("hasFormat", this._enhancedValidationFn !== undefined);
     },
 
     @on("init")
