@@ -1,2 +1,10 @@
-.discourse-us-extras {
+.user-field.error {
+  &,
+  input {
+    color: $danger !important;
+  }
+
+  input {
+    border-color: $danger !important;
+  }
 }

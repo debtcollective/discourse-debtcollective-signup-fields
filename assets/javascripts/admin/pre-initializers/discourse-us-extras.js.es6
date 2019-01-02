@@ -24,7 +24,7 @@ const initializeDiscourseUsExtra = api => {
 
   api.modifyClass("component:user-field", {
     classNameBindings: ["isValidFormat::error", "hasFormat:has-format"],
-    isValidFormat: false,
+    isValidFormat: true,
     hasFormat: false,
 
     @on("init")
