@@ -1,4 +1,4 @@
 plugins:
-  discourse_us_extras_enabled:
+  discourse_debtcollective_signup_fields:
     default: true
     client: true

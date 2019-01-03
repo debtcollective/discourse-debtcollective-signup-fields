@@ -11,7 +11,7 @@ import {
   ZipCodeFieldType
 } from "../lib/field-types";
 
-const initializeDiscourseUsExtra = api => {
+const initializeCustomFieldTypes = api => {
   api.modifyClassStatic("model:user-field", {
     fieldTypes() {
       return getBuiltInFieldTypes().concat(
@@ -64,9 +64,9 @@ const initializeDiscourseUsExtra = api => {
 };
 
 export default {
-  name: "discourse-us-extras",
+  name: "discourse-debtcollective-signup-fields",
   before: "inject-discourse-objects",
   initialize() {
-    withPluginApi("0.8.24", initializeDiscourseUsExtra);
+    withPluginApi("0.8.24", initializeCustomFieldTypes);
   }
 };
