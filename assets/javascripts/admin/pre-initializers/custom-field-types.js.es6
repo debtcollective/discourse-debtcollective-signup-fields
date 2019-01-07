@@ -35,17 +35,20 @@ const initializeCustomFieldTypes = api => {
 
     @on("init")
     bindFixedOptions() {
-      let options;
+      // Prevent to break built-in dropdowns by checking already defined options
+      let options = this.field.options;
 
-      switch (this.field.field_type) {
-        case types.state:
-          options = usaStates;
-          break;
-        default:
-          break;
+      if (!options) {
+        switch (this.field.field_type) {
+          case types.state:
+            options = usaStates;
+            break;
+          default:
+            break;
+        }
       }
 
-      this.field.options = options;
+      Ember.set(this.field, "options", options);
     },
 
     @observes("value")
