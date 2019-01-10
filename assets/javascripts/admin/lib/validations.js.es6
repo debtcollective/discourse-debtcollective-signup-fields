@@ -32,8 +32,12 @@ export const validateUserFieldsFormat = userFields => {
     */
     isValidData = userFields.every(userField => {
       const { field, value } = userField;
-      const validationFn = fieldTypesValidations[field.field_type];
-      return validationFn && validationFn(value);
+      // If there is no validation func for a custom userField we assume identity function
+      const validationFn =
+        fieldTypesValidations[field.field_type] || (() => true);
+
+      // If the field has a value we will check its format otherwise required empty fields will prevent submit by default
+      return value ? validationFn && validationFn(value) : true;
     });
   }
 

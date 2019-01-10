@@ -23,29 +23,32 @@ const initializeCustomFieldTypes = api => {
   });
 
   api.modifyClass("component:user-field", {
-    classNameBindings: ["isValidFormat::error", "hasFormat:has-format"],
+    classNameBindings: ["isValidFormat::error"],
     isValidFormat: true,
-    hasFormat: false,
 
     @on("init")
     enhanceFieldComponentValidation() {
-      this._enhancedValidationFn = fieldTypesValidations[this.field.field_type];
-      this.set("hasFormat", this._enhancedValidationFn !== undefined);
+      // If there is no validation func for a custom userField we assume identity function
+      this._enhancedValidationFn =
+        fieldTypesValidations[this.field.field_type] || (() => true);
     },
 
     @on("init")
     bindFixedOptions() {
-      let options;
+      // Prevent to break built-in dropdowns by checking already defined options
+      let options = this.field.options;
 
-      switch (this.field.field_type) {
-        case types.state:
-          options = usaStates;
-          break;
-        default:
-          break;
+      if (!options) {
+        switch (this.field.field_type) {
+          case types.state:
+            options = usaStates;
+            break;
+          default:
+            break;
+        }
       }
 
-      this.field.options = options;
+      Ember.set(this.field, "options", options);
     },
 
     @observes("value")
@@ -54,7 +57,14 @@ const initializeCustomFieldTypes = api => {
         Ember.run.debounce(
           this,
           value => {
-            this.set("isValidFormat", this._enhancedValidationFn(value));
+            let isValid = true;
+
+            // If there is no value at all we will keep the UI idle
+            if (value) {
+              isValid = this._enhancedValidationFn(value);
+            }
+
+            this.set("isValidFormat", isValid);
           },
           this.get("value"),
           250
