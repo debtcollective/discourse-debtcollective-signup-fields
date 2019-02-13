@@ -4,7 +4,6 @@
 # authors: duranmla
 # url: https://github.com/duranmla
 
-
 register_asset "stylesheets/common/discourse-debtcollective-signup-fields.scss"
 
 register_asset "javascripts/admin/lib/field-types.js.es6"
