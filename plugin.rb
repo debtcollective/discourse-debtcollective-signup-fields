@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # name: discourse-debtcollective-signup-fields
 # about:
 # version: 0.1
@@ -17,16 +18,13 @@ after_initialize do
     def self.add_user_to_group(user)
       state = user.custom_fields['user_field_1']
 
-      if state.nil?
-        capture_message("A user was created without State", user_id: user.id)
-        return
-      end
+      return if state.nil?
 
       group_name = state.split.map(&:camelize).join
       group = Group.find_by_name(group_name)
 
       if group.nil?
-        capture_message("A state group wasn't found", user_id: user.id, state: state, group_name: group_name)
+        capture_message("A state group wasn't found", extra: { user_id: user.id, state: state, group_name: group_name })
         return
       end
 
